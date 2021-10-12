@@ -28,7 +28,7 @@ Briefly, a finite state machine comprises:
 
 Here's a simple vending machine expressed as a finite state machine:
 
-![Vending Machine FSM](docImages/FSM Vending machne.svg)
+![Vending Machine FSM](docImages/FSM_vending_machine.svg)
 
 As you can see, there are five states the machine can be in.  The machine moves from state to state in response to either:
 
