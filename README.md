@@ -8,14 +8,14 @@ Although we try to avoid it as much as possible, there are times when our progra
 
 One way of handling this complexity is to have lists of conditions describing what is possible when.  A better way is to name each mode, and attach the conditions to the mode itself.
 
-> The computer-science term for this is a "Finite State Machine", and if you're interested there are lots of resources online which explain it in whatever detail you wish.
+- *The computer-science term for this is a "Finite State Machine", and if you're interested there are lots of resources online which explain it in whatever detail you wish.*
 
 ## Features
 
 This package will allow you to build a finite state machine with which you can control the modalities of your app or process to whatever detail you wish.  Using a package like this means:
 
 - There is a clear separation between logic and client. 
-- The logic is clear and simple.  It makes very clear in your code exactly what you want to happen, when, and why.  The logic is easily testable, easly extendable, and very simple to read.
+- The logic is clear and simple.  It explicates in your code exactly what you want to happen, when, and why.  The logic is easily testable, easly extendable, and very simple to read.
 - The associated client (whether that's a UI or some other behaviour) is also very simple: all the control logic is abstracted to the state machine.
 
 ## The least you need to know:
@@ -133,17 +133,13 @@ Map <SlotCode, ProudctDetails> menu;
 
 Points to note:
 
-The most obvious feature here is the Map: for each machine state, we define some properties.  Generally, you would expect to create key for every value in the state.
+- The most obvious feature here is the Map: for each machine state, we define some properties.  Generally, you would expect to create a key for every value in the state.
+- Most of the properties are nullable.  That means: in the machine's definition you define only the properties you care about.  This helps to give very concise machine descriptions without too much boilerplate.
+- To move the machine from state to state, generally you'd call `machine.setState (newState)`.  The exception to this rule is inside the processing of `onEnterState()`: here, if you want to redirect, the onEnterState processor returns the desired state (or null if it doesn't want to redirect).  
+  - *The reason for the difference is: `onEnterState()` is a sort of gatekeeper: if the onEnterState processor for state S redirects to state T, the machine doesn't enter state S - it appears to transition directly from the original state to T.*
 
-Most of the properties are nullable.  That means: in the machine's definition you define only the properties you care about.  This helps to give very concise machine descriptions without too much boilerplate.
-
-To move the machine from state to state, generally you'd call `machine.setState (newState)`.  The exception to this rule is inside the processing of `onEnterState()`: here, if you want to redirect, the onEnterState processor returns the desired state (or null if it doesn't want to redirect).  
-
-> The reason for the difference is: `onEnterState()` is a sort of gatekeeper: if the onEnterState processor for state S redirects to state T, the machine doesn't enter state S - it appears to transition directly from the original state to T.
-
-The machine needs to define not just its states, but also its initial state.  Every machine needs to start somewhere!
-
-Every machine needs to define a `defaultProperties` handler.  This function provides Properties in case it's not defined in the machine at all.  Generally, you should return a set of nullary properties, so the machine can report its own error.
+- The machine needs to define not just its states, but also its initial state.  Every machine needs to start somewhere!
+- Every machine needs to define a `defaultProperties` handler.  This function provides Properties in case it's not defined in the machine at all.  Generally, you should return a set of nullary properties, so the machine can report its own error.
 
 ### Using the state machine
 
