@@ -10,6 +10,10 @@ One way of handling this complexity is to have lists of conditions describing wh
 
 - *The computer-science term for this is a "Finite State Machine", and if you're interested there are lots of resources online which explain it in whatever detail you wish.*
 
+Here's a simple vending machine expressed as a finite state machine:
+
+![Vending Machine FSM](https://raw.githubusercontent.com/julescmay/flutter_finite_state_machine/main/docImages/FSM_vending_machine.svg?token=AFLQWI5AO3WS2FQJTNVVBITBNVO2W)
+
 ## Features
 
 This package will allow you to build a finite state machine with which you can control the modalities of your app or process to whatever detail you wish.  Using a package like this means:
@@ -26,11 +30,8 @@ Briefly, a finite state machine comprises:
 - A collection of rules by which the machine transitions from state to state.
 - Additionally (to make the theory useful to us), each state contains a collection of **Properties**, which the machine doesn't use but which you can inspect.
 
-Here's a simple vending machine expressed as a finite state machine:
 
-![Vending Machine FSM](docImages/FSM_vending_machine.svg)
-
-As you can see, there are five states the machine can be in.  The machine moves from state to state in response to either:
+Referring to the machine depicted above: as you can see, there are five states the machine can be in.  The machine moves from state to state in response to either:
 
 - Some action by an operator (the engineer enables the machine for use, the user inserts money);
 - Some event internal to the machine (the refund process has completed). Internal transitions are labelled (in parentheses).

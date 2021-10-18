@@ -6,11 +6,11 @@ library finite_state_machine;
 
 /// The base class for prpoerties for the FSM.  Every property set must implement at least these
 class FsmProperties<States> {
-  /// Notifies the client when the machine is about to enter a state, and gives it the opportunity to redirect to another state
+  /// Notifies the client when the machine is about to enter the state associated with these properties, and gives it the opportunity to redirect to another state
   /// 
   /// Return null to accept proposed state, or some other state to redirect
   final States? Function()? onEnterState;
-  /// Notifies the client when the machine is about to exit the current state
+  /// Notifies the client when the machine is about to exit the state associated with these properties
   final void Function()? onExitState;
 
   FsmProperties({this.onEnterState, this.onExitState});
@@ -38,7 +38,7 @@ class FSM<States, Properties extends FsmProperties> {
   /// The properties belonging to the state the machine is currently in
   Properties get values => this[_currentState!];
 
-  /// Recover the properties associated with the current state (or defaultProperties if none)
+  /// Recover the properties associated with the  state (or defaultProperties if none)
   Properties operator [] (States s) {
     return machine [s] ?? defaultProperties (s);
   }

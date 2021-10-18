@@ -6,7 +6,7 @@ This is a demonstration of the capabilities of the flutter_finite_state_machine 
 
 This is a simple flutter program to explore the Cluedo mansion:
 
-![First Cluedo board (1949)](Images/CluedoVintage.jpg)
+![First Cluedo board (1949)](https://raw.githubusercontent.com/julescmay/flutter_finite_state_machine/main/example/Images/CluedoVintage.jpg?token=AFLQWIYC7QJIYMB3T4EX7VTBNVP32)
 
 At each moment, you are in a room: the program will show a plan of  the room, along with the exits to other rooms.
 
