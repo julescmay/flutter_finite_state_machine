@@ -65,8 +65,8 @@ class VendProperties extends FsmProperties<VendState> (
 	final Function ()? onRefundPressed;
 	
 	VendProperties ({
-	    VendState? Function()? onEnterState,  
-    	void Function()? onExitState,
+		VendState? Function()? onEnterState,  
+		void Function()? onExitState,
 		required this.display,
 		this.onEnable,
 		this.onMoneyIn,
@@ -92,34 +92,34 @@ final machine = FSM <VendState, VendProperties> (
 			onMoneyIn: (sum) { credit += sum; machine.setState (inCredit);},
 			onEnable: (enable) { if (!enable) machine.setState (disabled); },
 			onEnterState: () => enabled ? null : VendState.disabled; // redirection
-        );
+	        );
 		VendState.inCredit: VendProperties (
-            display: "Please make your selection",
-            onMoneyIn: (sum) { credit += sum; },
-            onSelection: (code) {selection=code; machine.setState (VendState.vending);}
-            onRefundPressed: ()=>machine.setState (VendState.refunding);
+			display: "Please make your selection",
+			onMoneyIn: (sum) { credit += sum; },
+			onSelection: (code) {selection=code; machine.setState (VendState.vending);}
+			onRefundPressed: ()=>machine.setState (VendState.refunding);
 			onEnable: (enable) { if (!enable) machine.setState (refunding); },
-            onEnterState: () => credit==0 ? VendState.ready : null;
-        );
+			onEnterState: () => credit==0 ? VendState.ready : null;
+	        );
 		VendState.vending: VendProperties (
-            display: "Please take your purchase");
-        	onEnterState: () { 
-                if (credit < menu[selection].cost) return VendState.inCredit;
-                dispense (product).then (() {
-                    credit -= menu[selection].cost;
-                    machine.setState (VendState.inCredit);
-                });
-                return null;
-            }
-    	)
+			display: "Please take your purchase");
+			onEnterState: () { 
+				if (credit < menu[selection].cost) return VendState.inCredit;
+				dispense (product).then (() {
+					credit -= menu[selection].cost;
+					machine.setState (VendState.inCredit);
+				});
+				return null;
+			}
+		)
 		VendState.refund: VendProperties (
-            display: "Please take your change"
-            onEnterState: () { 
-                refund (credit).then (()=>machine.setState (VendState.ready));
-                return null;
-            }
-        );
-	}
+			display: "Please take your change"
+			onEnterState: () { 
+				refund (credit).then (()=>machine.setState (VendState.ready));
+				return null;
+			}
+	        );
+    	}
 );
 ```
 
